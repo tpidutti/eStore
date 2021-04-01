@@ -51,8 +51,8 @@ router.put('/:id', (req, res) => {
       where: {
         category_id: req.params.category_id
       },
-    }
-  );
+    });
+    return res.json(categoryData);
 });
 
 router.delete('/:id', (req, res) => {
