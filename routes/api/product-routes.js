@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const productData = await Product.findAll({
-      include: [{ model: Category}, { model: Tag},{ model: ProductTag }],
+      include: [{ model: Category }, { model: Tag },{ model: ProductTag }],
     });
     res.status(200).json(productData);
   }catch (err) {
@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
   try {
-    const productData = await Product.findByPk(req.params.id, {
+    const productData = await Product.findByPk(req.params.product_id, {
       include: [{ model: Category }, { model: Tag }, { model: ProductTag }],
     });
      if (!productData) {
@@ -37,7 +37,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // create new product
-router.post('/', (req, res) => {
+router.post('/',  (req, res) => {
   /* req.body should look like this...
     {
       product_name: "Basketball",
@@ -46,6 +46,7 @@ router.post('/', (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
+ 
   Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
@@ -73,12 +74,12 @@ router.put('/:id', (req, res) => {
   // update product data
   Product.update(req.body, {
     where: {
-      id: req.params.id,
+      product_id: req.params.product_id,
     },
   })
     .then((product) => {
       // find all associated tags from ProductTag
-      return ProductTag.findAll({ where: { product_id: req.params.id } });
+      return ProductTag.findAll({ where: { product_id: req.params.product_id } });
     })
     .then((productTags) => {
       // get list of current tag_ids
@@ -88,7 +89,7 @@ router.put('/:id', (req, res) => {
         .filter((tag_id) => !productTagIds.includes(tag_id))
         .map((tag_id) => {
           return {
-            product_id: req.params.id,
+            product_id: req.params.product_id,
             tag_id,
           };
         });
