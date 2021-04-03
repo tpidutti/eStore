@@ -41,6 +41,6 @@ The intended use for this application was to create a database for a sample onli
   ## Questions
   Please contact me, Theresa, with any questions you might have about this project.  You can reach me at bountravel@hotmail.com or view more of my work at GitHub, [tpidutti](https://github.com/tpidutti).
 
-  ## Video Demo of Manage My Employees
+  ## Video Demo of eStore
   (https://youtu.be/ifSMz-CsoR0)
  
